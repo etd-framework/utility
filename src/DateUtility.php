@@ -21,16 +21,18 @@ class DateUtility {
      * Méthode pour formater une date en gérant le fuseau horaire et
      * la langue choisis dans la conf de l'utilisateur.
      *
-     * @param string $date      La date à formater
-     * @param string $format    Le format à utiliser
+     * @param string $date   La date à formater
+     * @param string $format Le format à utiliser
+     *
      * @return string           La date formatée
      */
     public static function format($date, $format) {
 
         // On initialise les variables.
-        $app = Web::getInstance();
+        $app  = Web::getInstance();
         $lang = $app->getLanguage();
-        $tz = $app->get('timezone');
+        $text = $app->getText();
+        $tz   = $app->get('timezone');
 
         // Si ce n'est un objet Date, on le crée.
         if (!($date instanceof Date)) {
@@ -44,7 +46,7 @@ class DateUtility {
 
         // Si le format est une chaine traduisible (format différent suivant la langue de l'utilisateur)
         if ($lang->hasKey($format)) {
-            $format = Text::_($format);
+            $format = $text->translate($format);
         }
 
         return $date->format($format, true);
