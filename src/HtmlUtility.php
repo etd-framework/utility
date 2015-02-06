@@ -126,7 +126,7 @@ class HtmlUtility {
         $doc = Web::getInstance()
                   ->getDocument();
 
-        $doc->addDomReadyJS("$('[data-toggle=\"tooltip\"]').tooltip();", false, "bootstrap");
+        $doc->addDomReadyJS("$('[data-toggle=\"tooltip\"], .hasTooltip').tooltip();", false, "bootstrap");
 
     }
 
