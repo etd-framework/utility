@@ -119,6 +119,18 @@ class HtmlUtility {
     }
 
     /**
+     * Ajoute le script pour afficher les infobulles Bootstrap.
+     */
+    public static function tooltip() {
+
+        $doc = Web::getInstance()
+                  ->getDocument();
+
+        $doc->addDomReadyJS("$('[data-toggle=\"tooltip\"]').tooltip();", false, "bootstrap");
+
+    }
+
+    /**
      * Génère un icône d'état pour un élément.
      *
      * @param int    $value            La valeur de l'état
