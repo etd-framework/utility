@@ -12,6 +12,7 @@ namespace EtdSolutions\Utility;
 use EtdSolutions\Application\Web;
 use Joomla\Filesystem\Path;
 use Joomla\Language\Text;
+use Joomla\Utilities\ArrayHelper;
 
 defined('_JEXEC') or die;
 
@@ -138,10 +139,11 @@ class HtmlUtility {
      * @param string $tooltipPlacement Emplacement de l'info-bulle.
      * @param string $href             Valeur de l'attribut href du lien
      * @param null   $class            Classe CSS
+     * @param array  $attribs          Attributs supplémentaires
      *
      * @return string
      */
-    public static function state($value, $tooltips = true, $tooltipPlacement = 'top', $href = '#', $class = null) {
+    public static function state($value, $tooltips = true, $tooltipPlacement = 'top', $href = '#', $class = null, $attribs = null) {
 
         $class = !empty($class) ? $class : '';
 
@@ -153,6 +155,11 @@ class HtmlUtility {
 
         if (!empty($class)) {
             $html .= ' class="' . $class . '"';
+        }
+
+        if (!empty($attribs)) {
+            $attribs = ArrayHelper::toString($attribs);
+            $html .= ' ' . $attribs;
         }
 
         if ($tooltips) {
