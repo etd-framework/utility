@@ -9,7 +9,7 @@
 
 namespace EtdSolutions\Utility;
 
-use EtdSolutions\Application\Web;
+use EtdSolutions\Document\Document;
 use Joomla\Filesystem\Path;
 use Joomla\Language\Text;
 use Joomla\Utilities\ArrayHelper;
@@ -22,6 +22,17 @@ defined('_JEXEC') or die;
  * @package EtdSolutions\Framework\Utility
  */
 class HtmlUtility {
+
+    /**
+     * @var Text L'objet langue.
+     */
+    private $text;
+
+    function __construct(Text $text) {
+
+        $this->text = $text;
+
+    }
 
     /**
      * Méthode pour trier une colonne dans un tableau.
@@ -38,7 +49,7 @@ class HtmlUtility {
      *
      * @return  string
      */
-    public static function sort($title, $order, $direction = 'asc', $selected = 0, $task = null, $new_direction = 'asc', $tip = '', $icon = null, $formName = 'form-admin') {
+    public function sort($title, $order, $direction = 'asc', $selected = 0, $task = null, $new_direction = 'asc', $tip = '', $icon = null, $formName = 'form-admin') {
 
         $direction  = strtolower($direction);
         $orderIcons = array(
@@ -78,10 +89,7 @@ class HtmlUtility {
      *
      * @return  string  L'infobulle
      */
-    public static function tooltipText($title = '', $content = '', $translate = true, $escape = true) {
-
-        $text = Web::getInstance()
-                   ->getText();
+    public function tooltipText($title = '', $content = '', $translate = true, $escape = true) {
 
         // Returne une chaine vide s'il n'y a pas de titre ou de contenu.
         if ($title == '' && $content == '') {
@@ -90,8 +98,8 @@ class HtmlUtility {
 
         // On passe les textes dans Text.
         if ($translate) {
-            $title   = $text->translate($title);
-            $content = $text->translate($content);
+            $title   = $this->text->translate($title);
+            $content = $this->text->translate($content);
         }
 
         // On échappe les textes.
@@ -122,11 +130,9 @@ class HtmlUtility {
     /**
      * Ajoute le script pour afficher les infobulles Bootstrap.
      */
-    public static function tooltip() {
+    public function tooltip() {
 
-        $doc = Web::getInstance()
-                  ->getDocument();
-
+        $doc = Document::getInstance();
         $doc->addDomReadyJS("$('[data-toggle=\"tooltip\"], .hasTooltip').tooltip({container:'body',html:true});", false, "bootstrap");
 
     }
@@ -143,7 +149,7 @@ class HtmlUtility {
      *
      * @return string
      */
-    public static function state($value, $tooltips = true, $tooltipPlacement = 'top', $href = '#', $class = null, $attribs = null) {
+    public function state($value, $tooltips = true, $tooltipPlacement = 'top', $href = '#', $class = null, $attribs = null) {
 
         $class = !empty($class) ? $class : '';
 
@@ -180,7 +186,7 @@ class HtmlUtility {
                     break;
             }
 
-            $html .= ' data-toggle="tooltip" data-placement="' . $tooltipPlacement . '" title="' . self::tooltipText($tooltipText) . '"';
+            $html .= ' data-toggle="tooltip" data-placement="' . $tooltipPlacement . '" title="' . $this->tooltipText($tooltipText) . '"';
         }
 
         switch ($value) {
@@ -214,7 +220,7 @@ class HtmlUtility {
      * @return string Le rendu.
      * @throws \InvalidArgumentException Si le layout est introuvable.
      */
-    protected static function render($layout, $data) {
+    protected function render($layout, $data) {
 
         // On récupère le chemin vers le layout.
         $path = Path::clean(JPATH_THEME . '/html/utility/' . $layout . '.php');

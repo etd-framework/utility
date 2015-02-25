@@ -18,7 +18,7 @@
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
     "joomla/language": "2.*@dev",
-    "etdsolutions/application": "@dev"
+    "joomla/image": "~1.0"
   },
   "autoload": {
     "psr-4": {

@@ -9,13 +9,27 @@
 
 namespace EtdSolutions\Utility;
 
-use EtdSolutions\Application\Web;
 use Joomla\Date\Date;
-use Joomla\Language\Text;
-
-defined('_JEXEC') or die;
+use Joomla\Language\Language;
 
 class DateUtility {
+
+    /**
+     * @var Language L'objet langue.
+     */
+    private $lang;
+
+    /**
+     * @var string Le fuseau horaire.
+     */
+    private $tz;
+
+    function __construct(Language $lang, $tz = '') {
+
+        $this->lang = $lang;
+        $this->tz   = $tz;
+
+    }
 
     /**
      * Méthode pour formater une date en gérant le fuseau horaire et
@@ -24,15 +38,9 @@ class DateUtility {
      * @param string $date   La date à formater
      * @param string $format Le format à utiliser
      *
-     * @return string           La date formatée
+     * @return string La date formatée
      */
-    public static function format($date, $format) {
-
-        // On initialise les variables.
-        $app  = Web::getInstance();
-        $lang = $app->getLanguage();
-        $text = $app->getText();
-        $tz   = $app->get('timezone');
+    public function format($date, $format) {
 
         // Si ce n'est un objet Date, on le crée.
         if (!($date instanceof Date)) {
@@ -40,13 +48,14 @@ class DateUtility {
         }
 
         // Si un fuseau horaire utilisateur est spécifié dans l'appli.
-        if (!empty($tz)) {
+        if (!empty($this->tz)) {
             $date->setTimezone(new \DateTimeZone($tz));
         }
 
         // Si le format est une chaine traduisible (format différent suivant la langue de l'utilisateur)
-        if ($lang->hasKey($format)) {
-            $format = $text->translate($format);
+        if ($this->lang->hasKey($format)) {
+            $format = $this->lang->getText()
+                                 ->translate($format);
         }
 
         return $date->format($format, true);
