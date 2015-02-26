@@ -49,7 +49,7 @@ class DateUtility {
 
         // Si un fuseau horaire utilisateur est spécifié dans l'appli.
         if (!empty($this->tz)) {
-            $date->setTimezone(new \DateTimeZone($tz));
+            $date->setTimezone(new \DateTimeZone($this->tz));
         }
 
         // Si le format est une chaine traduisible (format différent suivant la langue de l'utilisateur)
