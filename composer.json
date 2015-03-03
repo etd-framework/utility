@@ -17,7 +17,7 @@
     "php": ">=5.4",
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
-    "joomla/language": "2.*@dev",
+    "joomla/language": "~2.0@dev",
     "joomla/image": "~1.0"
   },
   "autoload": {
