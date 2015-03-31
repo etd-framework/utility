@@ -50,11 +50,11 @@ class ImageUtility {
             $new_name = $filename."_".$suffix;
 
             // On redimensionne l'image.
-            $newImage = $image->resize($width, $height, true, Image::SCALE_INSIDE);
+            $newImage = $image->resize($width, $height, true, Image::SCALE_FIT);
 
             // On sauvegarde l'image.
-            $newImage->toFile($path . "/" . $new_name . ".jpg", IMAGETYPE_JPEG, array(
-                'quality' => 90
+            $newImage->toFile($path . "/" . $new_name . ".png", IMAGETYPE_PNG, array(
+                'quality' => 8
             ));
 
             // On libère la mémoire.

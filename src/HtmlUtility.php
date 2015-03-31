@@ -9,12 +9,9 @@
 
 namespace EtdSolutions\Utility;
 
-use EtdSolutions\Document\Document;
 use Joomla\Filesystem\Path;
 use Joomla\Language\Text;
 use Joomla\Utilities\ArrayHelper;
-
-defined('_JEXEC') or die;
 
 /**
  * Classe utilitaire pour faire des rendus HTML de petites parties répétitives.
@@ -132,8 +129,7 @@ class HtmlUtility {
      */
     public function tooltip() {
 
-        $doc = Document::getInstance();
-        $doc->addDomReadyJS("$('[data-toggle=\"tooltip\"], .hasTooltip').tooltip({container:'body',html:true});", false, "bootstrap");
+        (new RequireJSUtility())->addDomReadyJS("$('[data-toggle=\"tooltip\"], .hasTooltip').tooltip({container:'body',html:true});", false, "bootstrap");
 
     }
 

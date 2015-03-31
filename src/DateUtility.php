@@ -9,6 +9,7 @@
 
 namespace EtdSolutions\Utility;
 
+use EtdSolutions\Language\LanguageFactory;
 use Joomla\Date\Date;
 use Joomla\Language\Language;
 
@@ -24,9 +25,9 @@ class DateUtility {
      */
     private $tz;
 
-    function __construct(Language $lang, $tz = '') {
+    function __construct($tz = '') {
 
-        $this->lang = $lang;
+        $this->lang = (new LanguageFactory)->getLanguage();
         $this->tz   = $tz;
 
     }
