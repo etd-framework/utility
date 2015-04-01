@@ -50,7 +50,10 @@ class ImageUtility {
             $new_name = $filename."_".$suffix;
 
             // On redimensionne l'image.
-            $newImage = $image->resize($width, $height, true, Image::SCALE_FIT);
+            $newImage = $image->resize($width, $height, true, Image::SCALE_OUTSIDE);
+
+            // On rogne l'image.
+            $newImage->crop($width, $height, null, null, false);
 
             // On sauvegarde l'image.
             $newImage->toFile($path . "/" . $new_name . ".png", IMAGETYPE_PNG, array(
