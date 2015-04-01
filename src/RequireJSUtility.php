@@ -39,7 +39,11 @@ class RequireJSUtility {
      * @var array Les packages à charger dans RequireJS.
      */
     protected static $requirePackages = array(
-        "js/etdsolutions"
+        [
+            "name"     => "etdsolutions",
+            "location" => "js/etdsolutions",
+            "main"     => "app"
+        ]
     );
 
     /**
@@ -98,9 +102,22 @@ class RequireJSUtility {
 
     }
 
-    public function addRequirePackage($package) {
+    public function addRequirePackage($package, $location = null, $main = null) {
 
         if (!in_array($package, self::$requirePackages)) {
+
+            if (isset($location) || isset($main)) {
+                $package = ["name" => $package];
+
+                if (isset($location)) {
+                    $package["location"] = $location;
+                }
+
+                if (isset($main)) {
+                    $package["main"] = $main;
+                }
+            }
+
             self::$requirePackages[] = strtolower($package);
         }
 
