@@ -9,6 +9,7 @@
 
 namespace EtdSolutions\Utility;
 
+use EtdSolutions\Language\LanguageFactory;
 use Joomla\Application\AbstractApplication;
 
 /**
@@ -45,6 +46,30 @@ class RequireJSUtility {
             "main"     => "app"
         ]
     );
+
+    protected static $strings = array();
+
+    /**
+     * Translate a string into the current language and stores it in the JavaScript language store.
+     *
+     * @param   string   $string                The Text key.
+     * @param   boolean  $jsSafe                Ensure the output is JavaScript safe.
+     * @param   boolean  $interpretBackSlashes  Interpret \t and \n.
+     *
+     * @return  array
+     */
+    public function script($string = null, $jsSafe = true, $interpretBackSlashes = true) {
+
+        // Add the string to the array if not null.
+        if ($string !== null)
+        {
+
+            $text = (new LanguageFactory())->getText();
+            self::$strings[strtoupper($string)] = $text->translate($string, $jsSafe, $interpretBackSlashes);
+        }
+
+        return self::$strings;
+    }
 
     /**
      * Ajoute du script JavaScript en ligne exécuté dans le contexte jQuery.
@@ -165,6 +190,11 @@ class RequireJSUtility {
     public function printRequireJS(AbstractApplication $app) {
 
         $js = "";
+
+        // On ajoute les trads.
+        if (count(self::$strings)) {
+            $this->requireJS("etdsolutions/text", "text.load(" . json_encode(self::$strings) . ")", true);
+        }
 
         // On crée la configuration de requireJS
         $js .= "requirejs.config({\n";

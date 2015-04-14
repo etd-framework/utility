@@ -55,8 +55,7 @@ class DateUtility {
 
         // Si le format est une chaine traduisible (format différent suivant la langue de l'utilisateur)
         if ($this->lang->hasKey($format)) {
-            $format = $this->lang->getText()
-                                 ->translate($format);
+            $format = $this->lang->translate($format);
         }
 
         return $date->format($format, true);
