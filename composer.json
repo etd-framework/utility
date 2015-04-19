@@ -18,7 +18,7 @@
     "joomla/application": "2.0.*@dev",
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
-    "joomla/image": "~1.0",
+    "joomla/image": "2.0.*@dev",
     "joomla/utilities": "~1.0",
     "etdsolutions/language": "@dev"
   },
