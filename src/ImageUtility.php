@@ -34,6 +34,9 @@ class ImageUtility {
         // On instancie le gestionnaire d'image.
         $image = new Image($original_path);
 
+        // On change la couleur de fond.
+        $image->filter('Backgroundfill', ['color' => '#FFFFFF']);
+
         // On extrait le nom du fichier sans extension.
         $filename = pathinfo($original_path, PATHINFO_FILENAME);
 
@@ -49,14 +52,17 @@ class ImageUtility {
             // On crée le nouveau nom de fichier.
             $new_name = $filename."_".$suffix;
 
-            // On change la couleur de fond.
-            $image->filter('Backgroundfill', ['color' => '#FFFFFF']);
-
             // On redimensionne l'image.
             $newImage = $image->resize($width, $height, true, Image::SCALE_OUTSIDE);
 
+            // On change la couleur de fond.
+            //$newImage->filter('Backgroundfill', ['color' => '#FFFFFFFF']);
+
             // On rogne l'image.
             $newImage->crop($width, $height, null, null, false);
+
+            // On change la couleur de fond.
+            //$newImage->filter('Backgroundfill', ['color' => '#FFFFFFFF']);
 
             // On applique un filtre si nécessaire.
             if (array_key_exists('filter', $props)) {
@@ -65,8 +71,8 @@ class ImageUtility {
             }
 
             // On sauvegarde l'image.
-            $newImage->toFile($path . "/" . $new_name . ".png", IMAGETYPE_PNG, array(
-                'quality' => 8
+            $newImage->toFile($path . "/" . $new_name . ".jpg", IMAGETYPE_JPEG, array(
+                'quality' => 90
             ));
 
             // On libère la mémoire.
