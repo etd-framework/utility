@@ -58,7 +58,8 @@ class DateUtility {
             $format = $this->lang->translate($format);
         }
 
-        return $date->format($format, true);
+        setlocale(LC_TIME, $this->lang->getLocale());
+        return strftime($format, $date->getTimestamp());
 
     }
 
