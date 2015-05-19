@@ -32,4 +32,11 @@ class LocaleUtility {
 
     }
 
+    public function localeconv() {
+
+        setlocale(LC_ALL, $this->lang->getLocale());
+        return localeconv();
+
+    }
+
 }
