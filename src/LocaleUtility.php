@@ -28,7 +28,9 @@ class LocaleUtility {
     public function money_format($number, $format = '%!i') {
 
         setlocale(LC_MONETARY, $this->lang->getLocale());
-        return money_format($format, $number);
+        $str = money_format($format, $number);
+        $str = str_replace('Eu', '€', $str);
+        return $str;
 
     }
 
