@@ -9,8 +9,6 @@
 
 namespace EtdSolutions\Utility;
 
-use Joomla\Image\Image;
-
 /**
  * Classe utilitaire pour effectuer des opérations sur des images.
  *

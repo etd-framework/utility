@@ -21,9 +21,6 @@
     "joomla/utilities": "~1.0",
     "etdsolutions/language": "@dev"
   },
-  "suggest": {
-    "joomla/image": "Pour utiliser ImageUtility"
-  },
   "autoload": {
     "psr-4": {
       "EtdSolutions\\Utility\\": "src/"
