@@ -18,9 +18,11 @@
     "joomla/application": "2.0.*@dev",
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
-    "joomla/image": "2.0.*@dev",
     "joomla/utilities": "~1.0",
     "etdsolutions/language": "@dev"
+  },
+  "suggest": {
+    "joomla/image": "Pour utiliser ImageUtility"
   },
   "autoload": {
     "psr-4": {
