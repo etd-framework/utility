@@ -47,6 +47,15 @@ class RequireJSUtility {
         ]
     );
 
+    /**
+     * @var array Les packages à charger dans RequireJS.
+     */
+    protected static $requireMap = array(
+        '*' => [
+            'css' => 'js/vendor/css.min'
+        ]
+    );
+
     protected static $strings = array();
 
     /**
@@ -150,6 +159,17 @@ class RequireJSUtility {
         return $this;
     }
 
+    public function addRequireMap($prefix, $old, $new) {
+
+        if (!array_key_exists($prefix, self::$requireMap)) {
+            self::$requireMap[$prefix] = [];
+        }
+
+        self::$requireMap[$prefix][$old] = $new;
+
+        return $this;
+    }
+
     /**
      * Ajoute du JavaScript en ligne exécuté dans le contexte RequireJS.
      * Il sera exécuté après que le DOM du document soit prêt.
@@ -201,12 +221,8 @@ class RequireJSUtility {
         $js .= "requirejs.config({\n";
         $js .= "\tbaseUrl: '" . $app->get('uri.base.full') . "',\n";
 
-        // require-css
-        $js .= "\tmap: {\n";
-        $js .= "\t\t'*': {\n";
-        $js .= "\t\t\t'css': 'js/vendor/css.min'\n";
-        $js .= "\t\t}\n";
-        $js .= "\t}";
+        // map
+        $js .= "\tmap: " . json_encode(self::$requireMap);
 
         // packages
         if (count(self::$requirePackages)) {
