@@ -139,21 +139,26 @@ class RequireJSUtility {
 
     public function addRequirePackage($package, $location = null, $main = null) {
 
-        if (!in_array($package, self::$requirePackages)) {
+        $package = strtolower($package);
+
+        if (!array_key_exists($package, self::$requirePackages)) {
 
             if (isset($location) || isset($main)) {
-                $package = ["name" => $package];
+
+                $arr = [
+                    "name" => $package
+                ];
 
                 if (isset($location)) {
-                    $package["location"] = $location;
+                    $arr["location"] = $location;
                 }
 
                 if (isset($main)) {
-                    $package["main"] = $main;
+                    $arr["main"] = $main;
                 }
             }
 
-            self::$requirePackages[] = strtolower($package);
+            self::$requirePackages[$package] = $arr;
         }
 
         return $this;
