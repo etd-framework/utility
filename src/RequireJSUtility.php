@@ -156,6 +156,9 @@ class RequireJSUtility {
                 if (isset($main)) {
                     $arr["main"] = $main;
                 }
+
+            } else {
+                $arr = $package;
             }
 
             self::$requirePackages[$package] = $arr;
