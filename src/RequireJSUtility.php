@@ -234,7 +234,7 @@ class RequireJSUtility {
 
         // packages
         if (count(self::$requirePackages)) {
-            $js .= ",\n\tpackages: " . json_encode(self::$requirePackages);
+            $js .= ",\n\tpackages: " . json_encode(array_values(self::$requirePackages));
         }
 
         // modules
