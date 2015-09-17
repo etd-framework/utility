@@ -229,6 +229,11 @@ class RequireJSUtility {
         $js .= "requirejs.config({\n";
         $js .= "\tbaseUrl: '" . $app->get('uri.base.full') . "',\n";
 
+        // Debug => cache bust
+        if ($app->get('debug', false)) {
+            $js .= "\turlArgs: 'bust=' +  (new Date()).getTime(),\n";
+        }
+
         // map
         $js .= "\tmap: " . json_encode(self::$requireMap);
 
