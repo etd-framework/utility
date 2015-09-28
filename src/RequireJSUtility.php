@@ -248,9 +248,9 @@ class RequireJSUtility {
             $shim  = array();
             $paths = array();
             foreach (self::$requireModules as $module) {
-                $paths[] = "\t\t" . $module['module'] . ": '" . $module['path'] . "'";
+                $paths[] = "\t\t" . json_encode($module['module']) . ": " . json_encode($module['path']);
                 if ($module['shim'] !== false) {
-                    $shim[] = "\t\t" . $module['module'] . ": " . json_encode($module['shim']);
+                    $shim[] = "\t\t" . json_encode($module['module']) . ": " . json_encode($module['shim']);
                 }
             }
 
