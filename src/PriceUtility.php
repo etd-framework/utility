@@ -18,7 +18,8 @@ class PriceUtility {
 
     const ROUND_UP = 1;
     const ROUND_DOWN = 2;
-    const ROUND_HALF = 3;
+    const ROUND_HALF_UP = 3;
+    const ROUND_HALF_DOWN = 4;
 
     /**
      * @var Registry Configuration de l'application.
@@ -48,9 +49,11 @@ class PriceUtility {
             return self::ceilf($value, $precision);
         } elseif ($method == self::ROUND_DOWN) {
             return self::floorf($value, $precision);
+        } elseif ($method == self::ROUND_HALF_DOWN) {
+            return round($value, $precision, PHP_ROUND_HALF_DOWN);
         }
 
-        return round($value, $precision);
+        return round($value, $precision, PHP_ROUND_HALF_UP);
     }
 
     /**
