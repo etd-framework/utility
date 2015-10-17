@@ -9,6 +9,8 @@
 
 namespace EtdSolutions\Utility;
 
+use Joomla\Utilities\ArrayHelper;
+
 /**
  * Classe utilitaire pour effectuer des opérations sur des images.
  *
@@ -27,7 +29,7 @@ class ImageUtility {
     public function generateImageSizes($original_path, $destinationProps) {
 
         // On s'assure d'avoir des paramètres corrects.
-        $destinationProps = (array) $destinationProps;
+        $destinationProps = ArrayHelper::fromObject($destinationProps);
 
         // On extrait le nom du fichier sans extension.
         $filename = pathinfo($original_path, PATHINFO_FILENAME);
