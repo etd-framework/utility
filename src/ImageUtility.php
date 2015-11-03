@@ -9,6 +9,7 @@
 
 namespace EtdSolutions\Utility;
 
+use Joomla\Image\Image;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -60,17 +61,22 @@ class ImageUtility {
                 return false;
             }
 
-            // On applique un filtre si nécessaire.
-            if (array_key_exists('filter', $props)) {
-                $options =  (array_key_exists('filter_options', $props)) ? $props['filter_options'] : [];
-                $this->filter($handle, $props['filter'], $options);
+            // Si la fonction a retourné une ressource.
+            if (is_resource($handle)) {
+
+                // On applique un filtre si nécessaire.
+                if (array_key_exists('filter', $props)) {
+                    $options =  (array_key_exists('filter_options', $props)) ? $props['filter_options'] : [];
+                    $this->filter($handle, $props['filter'], $options);
+                }
+
+                // On sauvegarde l'image.
+                imagejpeg($handle, $new_path, 90);
+
+                // On libère la mémoire.
+                imagedestroy($handle);
+
             }
-
-            // On sauvegarde l'image.
-            imagejpeg($handle, $new_path, 90);
-
-            // On libère la mémoire.
-            imagedestroy($handle);
 
         }
 
@@ -209,6 +215,18 @@ class ImageUtility {
         imagedestroy($temp_gd_image);
 
         return $desired_gdim;
+    }
+
+    protected function resize($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height) {
+
+        $image = new Image($source_image_path);
+
+        $image->resize($thumbnail_image_max_width, $thumbnail_image_max_height, false, Image::SCALE_INSIDE);
+
+        return $image->toFile($thumbnail_image_path, IMAGETYPE_JPEG, [
+            'quality' => 80
+        ]);
+
     }
 
     /**
