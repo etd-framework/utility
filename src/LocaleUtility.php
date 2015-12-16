@@ -29,7 +29,7 @@ class LocaleUtility {
 
         setlocale(LC_MONETARY, $this->lang->getLocale());
         $str = money_format($format, $number);
-        $str = str_replace('Eu', '€', $str);
+        $str = str_replace(['Eu', 'EUR'], '€', $str);
         return $str;
 
     }
