@@ -37,12 +37,13 @@ class PriceUtility {
      *
      * @param float $value     La valeur
      * @param int   $precision Le nombre de chiffres après la virgule.
+     * @param int   $method    La méthode d'arrondie à utiliser.
      *
      * @return float La valeur arrondie
      */
-    public function round($value, $precision = null) {
+    public function round($value, $precision = null, $method = null) {
 
-        $method    = $this->config->get('price.round_mode');
+        $method    = is_numeric($method) ? $method : $this->config->get('price.round_mode');
         $precision = isset($precision) ? (int)$precision : $this->config->get('price.default_precision');
 
         if ($method == self::ROUND_UP) {
