@@ -232,6 +232,7 @@ class RequireJSUtility {
         // Debug => cache bust
         if ($app->get('debug', false)) {
             $js .= "\turlArgs: 'bust=' +  (new Date()).getTime(),\n";
+            $js .= "\twaitSeconds: 0,\n";
         }
 
         // map
