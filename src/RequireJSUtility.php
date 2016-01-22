@@ -234,7 +234,7 @@ class RequireJSUtility {
             $js .= "\turlArgs: 'bust=' +  (new Date()).getTime(),\n";
             $js .= "\twaitSeconds: 0,\n";
         } elseif ($app->get('assets.version') !== null) {
-            $js .= "\turlArgs: 'v='" . $app->get('assets.version') . ",\n";
+            $js .= "\turlArgs: 'v=" . $app->get('assets.version') . "',\n";
         }
 
         // map
