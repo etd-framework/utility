@@ -19,6 +19,8 @@ use Joomla\Application\AbstractApplication;
  */
 class RequireJSUtility {
 
+    protected static $keepSession = false;
+
     /**
      * Scripts JS en ligne exécutés quand le DOM est chargé.
      *
@@ -57,6 +59,13 @@ class RequireJSUtility {
     );
 
     protected static $strings = array();
+
+    /**
+     * Demande une conservation de la session de l'utilisateur.
+     */
+    public function keepSession() {
+        self::$keepSession = true;
+    }
 
     /**
      * Translate a string into the current language and stores it in the JavaScript language store.
@@ -223,6 +232,12 @@ class RequireJSUtility {
         // On ajoute les trads.
         if (count(self::$strings)) {
             $this->requireJS("etdsolutions/text", "text.load(" . json_encode(self::$strings) . ")", true);
+        }
+
+        // On ajoute la conservation de la session.
+        if (self::$keepSession) {
+            $interval = floor((int)$app->get('session_expire') / 3) * 60000;
+            $this->requireJS("jquery", "window.setInterval(function(){\$.get('" . $app->get('uri.base.full') . "?stayAlive=true')}," . $interval . ");", true);
         }
 
         // On crée la configuration de requireJS
