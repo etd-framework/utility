@@ -23,7 +23,7 @@
     "etdsolutions/language": "@dev"
   },
   "suggest": {
-    "matthiasmullie/minify": "Pour minifier le JS inline",
+    "matthiasmullie/minify": "Pour minifier le JS inline"
   },
   "autoload": {
     "psr-4": {
