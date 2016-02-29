@@ -11,6 +11,7 @@ namespace EtdSolutions\Utility;
 
 use EtdSolutions\Language\LanguageFactory;
 use Joomla\Application\AbstractApplication;
+use SimpleAcl\Exception\RuntimeException;
 
 /**
  * Classe utilitaire pour paramétrer RequireJS
@@ -333,6 +334,19 @@ class RequireJSUtility {
                 $js .= ");\n";
 
             }
+        }
+
+        // On minifie le JS.
+        if ($app->get('minify_inline_js')) {
+
+            if (!class_exists("\\MatthiasMullie\\Minify\\JS")) {
+                throw new RuntimeException("Le paquet matthiasmullie/minify n'est pas installé. Exécuter &quot;composer require matthiasmullie/minify&quot;");
+            }
+
+            $minifier = new \MatthiasMullie\Minify\JS();
+            $minifier->add($js);
+            $js = $minifier->minify();
+
         }
 
         return $js;

@@ -22,6 +22,9 @@
     "joomla/image": "2.0.*@dev",
     "etdsolutions/language": "@dev"
   },
+  "suggest": {
+    "matthiasmullie/minify": "Pour minifier le JS inline",
+  },
   "autoload": {
     "psr-4": {
       "EtdSolutions\\Utility\\": "src/"
