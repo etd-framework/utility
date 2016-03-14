@@ -53,8 +53,20 @@ class ImageUtility {
             // On choisit la méthode
             $method = $props['method'];
 
+            $extra = isset($props['extra']) ? $props['extra'] : null;
+
+            if (array_key_exists('resizeIfBiggerOnly', $props) && $props['resizeIfBiggerOnly'] == true) {
+
+                $size = getimagesize($original_path);
+
+                if ($width > $size[0] && $height > $size[1]) {
+                    $method = "resample";
+                }
+
+            }
+
             // On applique la méthode et on récupère la ressource.
-            $handle = $this->$method($original_path, $new_path, $width, $height);
+            $handle = $this->$method($original_path, $new_path, $width, $height, $extra);
 
             // Si tout s'est bien passé.
             if ($handle === false) {
@@ -84,7 +96,7 @@ class ImageUtility {
 
     }
 
-    protected function scale_inside($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height) {
+    protected function scale_inside($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height, $extra = null) {
 
         $source_gd_image = false;
 
@@ -146,7 +158,7 @@ class ImageUtility {
 
     }
 
-    protected function crop_inside($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height) {
+    protected function crop_inside($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height, $extra = null) {
 
         $source_gd_image = false;
 
@@ -217,11 +229,21 @@ class ImageUtility {
         return $desired_gdim;
     }
 
-    protected function resize($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height) {
+    protected function resize($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height, $method = Image::SCALE_INSIDE) {
 
         $image = new Image($source_image_path);
 
-        $image->resize($thumbnail_image_max_width, $thumbnail_image_max_height, false, Image::SCALE_INSIDE);
+        $image->resize($thumbnail_image_max_width, $thumbnail_image_max_height, false, $method);
+
+        return $image->toFile($thumbnail_image_path, IMAGETYPE_JPEG, [
+            'quality' => 80
+        ]);
+
+    }
+
+    protected function resample($source_image_path, $thumbnail_image_path, $thumbnail_image_max_width, $thumbnail_image_max_height, $extra = null) {
+
+        $image = new Image($source_image_path);
 
         return $image->toFile($thumbnail_image_path, IMAGETYPE_JPEG, [
             'quality' => 80
