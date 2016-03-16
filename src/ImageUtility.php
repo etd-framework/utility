@@ -53,7 +53,7 @@ class ImageUtility {
             // On choisit la méthode
             $method = $props['method'];
 
-            $extra = isset($props['extra']) ? $props['extra'] : null;
+            $extra = isset($props['extra']) ? $props['extra'] : Image::SCALE_INSIDE;
 
             if (array_key_exists('resizeIfBiggerOnly', $props) && $props['resizeIfBiggerOnly'] == true) {
 
