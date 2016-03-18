@@ -73,7 +73,7 @@ class PriceUtility {
         $tmp2             = (string)$tmp;
 
         // Si la valeur actuelle a déjà la précision désirée.
-        if (strpos($tmp2, '.') === false) {
+        if (strpos($tmp2, '.') === false && strpos($tmp2, ',') === false) {
             return ($value);
         }
         if ($tmp2[strlen($tmp2) - 1] == 0) {
@@ -99,7 +99,7 @@ class PriceUtility {
         $tmp2             = (string)$tmp;
 
         // Si la valeur actuelle a déjà la précision désirée.
-        if (strpos($tmp2, '.') === false) {
+        if (strpos($tmp2, '.') === false & strpos($tmp2, ',') === false) {
             return ($value);
         }
         if ($tmp2[strlen($tmp2) - 1] == 0) {
