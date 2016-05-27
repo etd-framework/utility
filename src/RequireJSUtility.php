@@ -107,15 +107,16 @@ class RequireJSUtility {
 
         $module = $jQuery === true ? "jquery" : "";
 
-        if (!empty($module)) {
-            $module .= ", ";
-        }
+        if (strlen($modules) > 0) {
 
-        if (!empty($modules)) {
+            if (strlen($module) > 0) {
+                $module .= ", ";
+            }
+
             $module .= $modules;
         }
 
-        if (!empty($module)) {
+        if (strlen($module) > 0) {
             $module .= ", ";
         }
 
