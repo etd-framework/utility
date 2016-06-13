@@ -15,7 +15,7 @@
   ],
   "require": {
     "php": ">=5.4",
-    "joomla/application": "2.0.*@dev",
+    "joomla/application": "~2.0@dev",
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
     "joomla/utilities": "~1.0",
