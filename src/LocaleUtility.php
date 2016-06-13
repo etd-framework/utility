@@ -27,17 +27,24 @@ class LocaleUtility {
 
     public function money_format($number, $format = '%!i') {
 
-        setlocale(LC_MONETARY, $this->lang->getLocale());
+        $this->setlocale(LC_MONETARY);
         $str = money_format($format, $number);
-        $str = str_replace(['Eu', 'EUR'], '€', $str);
+        $str = str_replace(['Eu','EUR'], '€', $str);
+
         return $str;
 
     }
 
     public function localeconv() {
 
-        setlocale(LC_ALL, $this->lang->getLocale());
+        $this->setlocale();
+
         return localeconv();
+    }
+
+    public function setlocale($category = LC_ALL) {
+
+        return setlocale($category, $this->lang->getLocale());
 
     }
 
