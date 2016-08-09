@@ -122,7 +122,6 @@ class RequireJSUtility {
 
         $module .= "domReady!";
 
-        $this->addRequireJSModule('domReady', 'js/vendor/domReady.min');
         $this->requireJS($module, $script, $onTop);
 
         return $this;
@@ -239,6 +238,9 @@ class RequireJSUtility {
     public function printRequireJS(AbstractApplication $app) {
 
         $js = "";
+
+        // On ajoute le domReady par défaut.
+        $this->addRequireJSModule('domReady', 'js/vendor/domReady.min');
 
         // On ajoute les trads.
         if (count(self::$strings)) {
