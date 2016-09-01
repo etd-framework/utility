@@ -249,7 +249,7 @@ class RequireJSUtility {
 
         // On ajoute la conservation de la session.
         if (self::$keepSession) {
-            $interval = floor((int)$app->get('session_expire') / 3) * 60000;
+            $interval = floor((int)$app->get('session_expire') / 3) * 60;
             $this->requireJS("jquery", "window.setInterval(function(){\$.get('" . $app->get('uri.base.full') . "?stayAlive=true')}," . $interval . ");", true);
         }
 
