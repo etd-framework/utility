@@ -19,11 +19,11 @@
     "joomla/date": "~1.0",
     "joomla/filesystem": "~1.0",
     "joomla/utilities": "~1.0",
-    "joomla/image": "2.0.*@dev",
     "etdsolutions/language": "@dev"
   },
   "suggest": {
-    "matthiasmullie/minify": "Pour minifier le JS inline"
+    "matthiasmullie/minify": "Pour minifier le JS inline",
+    "joomla/image": "Pour ImageUtility"
   },
   "autoload": {
     "psr-4": {
