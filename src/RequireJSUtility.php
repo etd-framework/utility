@@ -45,8 +45,7 @@ class RequireJSUtility {
     protected static $requirePackages = array(
         [
             "name"     => "etdsolutions",
-            "location" => "js/etdsolutions",
-            "main"     => "app"
+            "location" => "js/vendor/etdsolutions"
         ]
     );
 
