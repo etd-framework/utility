@@ -303,8 +303,9 @@ class RequireJSUtility {
 
             foreach (self::$requireJS as $id => $scripts) {
 
-                $content = "";
-                $modules = explode(",", $id);
+                $content      = "";
+                $req_modules  = explode(",", preg_replace("/:[a-zA-Z]{1,}/", "", $id));
+                $func_modules = explode(",", $id);
 
                 foreach ($scripts as $script) {
                     if (!empty($script)) {
@@ -312,14 +313,18 @@ class RequireJSUtility {
                     }
                 }
 
-                $js .= "require(" . json_encode($modules);
+                $js .= "require(" . json_encode($req_modules);
 
                 if (!empty($content)) {
-                    $modules = array_filter($modules, function ($module) {
+                    $modules = array_filter($func_modules, function ($module) {
 
                         return (strpos($module, '!') === false);
                     });
                     $modules = array_map(function ($module) {
+
+                        if (strpos($module, ":") !== false) {
+                            $module = substr($module, strrpos($module, ':') + 1);
+                        }
 
                         if (strpos($module, '/') !== false) {
                             $module = substr($module, strrpos($module, '/') + 1);
